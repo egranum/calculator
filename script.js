@@ -25,3 +25,12 @@ const operate = (x, operator, y) => {
     }
     return equations[operator];
 }
+
+//Loop for finding button values
+let data = document.querySelector('div.buttons').childNodes;
+
+for (let i = 0; i < data.length; i++) {
+    if (data[i].nodeType == 1) {
+        console.log(data[i].childNodes[0].nodeValue);
+    }
+}
