@@ -34,6 +34,14 @@ const addToDisplay = (toBeAdded) => {
     numberContainer.appendChild(numberToAdd);
 }
 
+
+function removeDisplayContent() {
+    //empty display
+    const numberContainer = document.querySelector('.number-container')
+    numberContainer.textContent = ''
+}
+
+//buttons are needed for the event listener. Don't remove again you dumbfuck.
 const allButtons = Array.from(document.querySelectorAll('.button'));
 
 
@@ -46,7 +54,12 @@ function connectButtons(e) {
         theCode = document.querySelector(`button[data-key="${e.code}"]`);
     }
     
-    addToDisplay(theCode.value)
+    
+    if (theCode.value == "C") {
+        removeDisplayContent();
+    } else {
+        addToDisplay(theCode.value)
+    }
 }
 
 function createVariable(connectButtons) {
