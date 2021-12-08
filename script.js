@@ -123,12 +123,30 @@ function calculate() {
                 createShowing();
             } else if (theCode.classList.contains("operator")) {
                 operator = theCode.value;
-                console.log(operator);
+                
+                const operatorPressed = () => {
+                    if (x === undefined && y === undefined) {
+                        //store first number in x
+                        x = showingNumber;
+                        showingNumber = "";
+                        console.log(`x = ${x}`);
+                    } else if (x !== undefined && y === undefined) {
+                        //store second number in y
+                        y = showingNumber;
+                        showingNumber = "";
+                        console.log(`y = ${y}`);
+                    }
+
+                }
+
+                operatorPressed();
             } 
         }
         
         doButtonStuff();
         console.log(`showing after ${showingNumber}`)
+        console.log(`x outside = ${x}`)
+        console.log(`y ourside = ${y}`)
     }
     
     window.addEventListener('keydown', connectButtons);
