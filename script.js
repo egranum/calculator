@@ -121,32 +121,90 @@ function calculate() {
                     showingNumber += numButton;
                 }
                 createShowing();
+                console.log(showingNumber);
             } else if (theCode.classList.contains("operator")) {
+                
+            
+                    // let firstOperator = "";
+                    // let spareOperator = "";
+                    // let rearOperator = "";
+
+                    // if (operator.length >= 1) {
+                    //     spareOperator = theCode.value;
+                    // } else if (spareOperator.length >= 1) {
+                    //     rearOperator = theCode.value;
+                    // } else {
+                    //     firstOperator = theCode.value;
+                    // }
+
+                    // if (rearOperator.length >= 1) {
+                    //     firstOperator = spareOperator;
+                    //     spareOperator = rearOperator;
+                    //     rearOperator = "";
+                    // }
+                
                 operator = theCode.value;
+            
+                console.log(`operator is currently ${operator}`);
                 
                 const operatorPressed = () => {
                     if (x === undefined && y === undefined) {
                         //store first number in x
-                        x = showingNumber;
+                        x = Number(showingNumber);
                         showingNumber = "";
                         console.log(`x = ${x}`);
                     } else if (x !== undefined && y === undefined) {
                         //store second number in y
-                        y = showingNumber;
+                        y = Number(showingNumber);
                         showingNumber = "";
                         console.log(`y = ${y}`);
+                    } else if (x !== undefined && y !== undefined) {
+                        //do math if both values are full
+                        console.log(`operator is ${operator}`);
+                        let total = operate(x, operator, y);
+                        console.log(`total = ${total}`);
+                        x = total;
+                        console.log(`x as total = ${x}`);
+                        y = Number(showingNumber);
+                        console.log(`new y = ${y}`);
+                        showingNumber = "";
+                        console.log(`new operator is ${operator}`);
                     }
 
                 }
 
                 operatorPressed();
-            } 
+
+            } else if (theCode.classList.contains("equals-btn")) {
+                const doTheMath = () => {
+                    let result;
+
+                    if (x === undefined && y === undefined) {
+                        x = Number(showingNumber);
+                    } else if (x !== undefined && y === undefined) {
+                        y = Number(showingNumber);
+                        result = operate(x, operator, y);
+                        console.log(result);
+                        console.log(`result is ${result}`);
+                        removeDisplayContent();
+                        addToDisplay(result);
+                    } else if ( x !== undefined && y !== undefined ) {
+                        result = operate(x, operator, y);
+                        console.log(result);
+                        console.log(`result is ${result}`);
+                        removeDisplayContent();
+                        addToDisplay(result);
+                    }
+                }
+
+                doTheMath();
+            }
         }
         
         doButtonStuff();
-        console.log(`showing after ${showingNumber}`)
-        console.log(`x outside = ${x}`)
-        console.log(`y ourside = ${y}`)
+        // console.log(`showing after ${showingNumber}`)
+        // console.log(`x outside = ${x}`)
+        // console.log(`y outside = ${y}`)
     }
     
     window.addEventListener('keydown', connectButtons);
