@@ -121,56 +121,32 @@ function calculate() {
                     showingNumber += numButton;
                 }
                 createShowing();
-                console.log(showingNumber);
             } else if (theCode.classList.contains("operator")) {
                 
-            
-                    // let firstOperator = "";
-                    // let spareOperator = "";
-                    // let rearOperator = "";
-
-                    // if (operator.length >= 1) {
-                    //     spareOperator = theCode.value;
-                    // } else if (spareOperator.length >= 1) {
-                    //     rearOperator = theCode.value;
-                    // } else {
-                    //     firstOperator = theCode.value;
-                    // }
-
-                    // if (rearOperator.length >= 1) {
-                    //     firstOperator = spareOperator;
-                    //     spareOperator = rearOperator;
-                    //     rearOperator = "";
-                    // }
-                
-                operator = theCode.value;
-            
-                console.log(`operator is currently ${operator}`);
-                
                 const operatorPressed = () => {
+                    
                     if (x === undefined && y === undefined) {
+                        operator = theCode.value;
                         //store first number in x
                         x = Number(showingNumber);
                         showingNumber = "";
                         console.log(`x = ${x}`);
                     } else if (x !== undefined && y === undefined) {
+                        //put second operator somewhere temporary
+                        let tempOperator = theCode.value;
                         //store second number in y
                         y = Number(showingNumber);
                         showingNumber = "";
                         console.log(`y = ${y}`);
-                    } else if (x !== undefined && y !== undefined) {
-                        //do math if both values are full
-                        console.log(`operator is ${operator}`);
-                        let total = operate(x, operator, y);
-                        console.log(`total = ${total}`);
-                        x = total;
-                        console.log(`x as total = ${x}`);
-                        y = Number(showingNumber);
-                        console.log(`new y = ${y}`);
-                        showingNumber = "";
-                        console.log(`new operator is ${operator}`);
-                    }
-
+                        //do math
+                        let result = operate(x, operator, y);
+                        x = result;
+                        y = undefined;
+                        operator = tempOperator;
+                        removeDisplayContent();
+                        addToDisplay(result);
+                        addToDisplay(operator);
+                    } 
                 }
 
                 operatorPressed();
@@ -183,15 +159,24 @@ function calculate() {
                         x = Number(showingNumber);
                     } else if (x !== undefined && y === undefined) {
                         y = Number(showingNumber);
+                        showingNumber = "";
                         result = operate(x, operator, y);
                         console.log(result);
                         console.log(`result is ${result}`);
+                        x = result;
+                        y = undefined;
+                        console.log(`x is ${x}`);
                         removeDisplayContent();
                         addToDisplay(result);
                     } else if ( x !== undefined && y !== undefined ) {
+                        y = Number(showingNumber);
+                        showingNumber = "";
                         result = operate(x, operator, y);
                         console.log(result);
                         console.log(`result is ${result}`);
+                        x = result;
+                        y = undefined;
+                        console.log(`x is ${x}`);
                         removeDisplayContent();
                         addToDisplay(result);
                     }
