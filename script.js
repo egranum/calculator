@@ -26,46 +26,6 @@ const operate = (x, operator, y) => {
     return equations[operator];
 }
 
-// function resetEverything(showingNumber, x, y, operator, numButton) {
-//     showingNumber = "";
-//     x = undefined;
-//     y = undefined;
-//     operator = "";
-//     numButton = undefined;
-//     console.log(showingNumber, x, y, operator, numButton);
-// }
-
-// function doButtonStuff(theCode, showingNumber, x, y, operator, numButton) {
-//     if (theCode.classList.contains("reset")) {
-//         removeDisplayContent();
-//         resetEverything(showingNumber, x, y, operator, numButton);
-//     } else if (theCode.classList.contains("number")) {
-//         numButton = theCode.value
-//         console.log(`this is numbutton inside ${numButton}`)
-//         const createShowing = () => {
-//             console.log(showingNumber += theCode.value);
-//         }
-//         createShowing();
-//         console.log(`this is showing inside ${showingNumber}`)
-//         return createShowing;
-//     } else if (theCode.classList.contains("operator")) {
-//         operator = theCode.value;
-//         console.log(operator);
-//     } 
-// }
-// function doButtonStuff(theCode, showingNumber, x, y, operator, numButton) {
-//     if (theCode.classList.contains("reset")) {
-//         removeDisplayContent();
-//         resetEverything(showingNumber, x, y, operator, numButton);
-//     } else if (theCode.classList.contains("number")) {
-//         numButton = theCode.value;
-//         console.log(numButton);
-//     } else if (theCode.classList.contains("operator")) {
-//         operator = theCode.value;
-//         console.log(operator);
-//     } 
-// }
-
 const addToDisplay = (toBeAdded) => {
     //Add numbers and operators to display
     const numberContainer = document.querySelector('.number-container');
@@ -112,15 +72,16 @@ function calculate() {
                     y = undefined;
                     operator = "";
                     numButton = undefined;
-                    console.log(showingNumber, x, y, operator, numButton);
                 }
                 resetEverything();
+
             } else if (theCode.classList.contains("number")) {
                 numButton = theCode.value;
                 const createShowing = () => {
                     showingNumber += numButton;
                 }
                 createShowing();
+                
             } else if (theCode.classList.contains("operator")) {
                 
                 const operatorPressed = () => {
@@ -130,7 +91,6 @@ function calculate() {
                         //store first number in x
                         x = Number(showingNumber);
                         showingNumber = "";
-                        console.log(`x = ${x}`);
                     } else if (x !== undefined && y === undefined) {
                         //put second operator somewhere temporary
                         let tempOperator = theCode.value;
@@ -161,22 +121,8 @@ function calculate() {
                         y = Number(showingNumber);
                         showingNumber = "";
                         result = operate(x, operator, y);
-                        console.log(result);
-                        console.log(`result is ${result}`);
                         x = result;
                         y = undefined;
-                        console.log(`x is ${x}`);
-                        removeDisplayContent();
-                        addToDisplay(result);
-                    } else if ( x !== undefined && y !== undefined ) {
-                        y = Number(showingNumber);
-                        showingNumber = "";
-                        result = operate(x, operator, y);
-                        console.log(result);
-                        console.log(`result is ${result}`);
-                        x = result;
-                        y = undefined;
-                        console.log(`x is ${x}`);
                         removeDisplayContent();
                         addToDisplay(result);
                     }
@@ -187,15 +133,10 @@ function calculate() {
         }
         
         doButtonStuff();
-        // console.log(`showing after ${showingNumber}`)
-        // console.log(`x outside = ${x}`)
-        // console.log(`y outside = ${y}`)
     }
     
     window.addEventListener('keydown', connectButtons);
-    // window.addEventListener('keydown', testLog);
     allButtons.forEach(btn => btn.addEventListener('click', connectButtons));
-    // allButtons.forEach(btn => btn.addEventListener('click', testLog));
 }
 
 calculate()
