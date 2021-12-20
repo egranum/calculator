@@ -81,7 +81,7 @@ function calculate() {
                     showingNumber += numButton;
                 }
                 createShowing();
-                
+
             } else if (theCode.classList.contains("operator")) {
                 
                 const operatorPressed = () => {
@@ -97,7 +97,6 @@ function calculate() {
                         //store second number in y
                         y = Number(showingNumber);
                         showingNumber = "";
-                        console.log(`y = ${y}`);
                         //do math
                         let result = operate(x, operator, y);
                         x = result;
