@@ -8,7 +8,9 @@ const subtract = (x, y) => {
 }
 
 const multiply = (x, y) => {
-    return x * y;
+    if (x === 0 && y === 0) {
+        return `Heat death of the universe`;
+    } else return x * y;
 }
 
 const divide = (x, y) => {
@@ -33,7 +35,6 @@ const addToDisplay = (toBeAdded) => {
     numberToAdd.textContent = toBeAdded;
     numberContainer.appendChild(numberToAdd);
 }
-
 
 function removeDisplayContent() {
     //empty display
