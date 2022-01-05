@@ -36,6 +36,12 @@ const addToDisplay = (toBeAdded) => {
     numberContainer.appendChild(numberToAdd);
 }
 
+function removeFromDisplay() {
+    //remove last added item from display
+    const numberContainer = document.querySelector('.number-container');
+    numberContainer.removeChild(numberContainer.lastChild);
+}
+
 function removeDisplayContent() {
     //empty display
     const numberContainer = document.querySelector('.number-container')
