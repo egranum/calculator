@@ -58,6 +58,8 @@ function calculate() {
     let y;
     let operator = "";
     let numButton;
+    let theCode;
+    let theCodeValue;
 
     function connectButtons(e) {
         //prevent default button behaviour
@@ -65,14 +67,22 @@ function calculate() {
             e.preventDefault();
         }
         //choose the correct button, either by click or keyboard
-        let theCode;
+        
         if (e.type === 'click') {
             theCode = e.currentTarget;
         } else {
             theCode = document.querySelector(`button[data-key="${e.code}"]`);
         }
+
+        const findCodeValue = () => {
+            if (theCodeValue !== theCode.id || theCodeValue === undefined) {
+                theCodeValue = theCode.value;
+            }
+        }
+        findCodeValue();
+        console.log(theCodeValue);
  
-        if (!theCode.classList.contains("chaos")) {addToDisplay(theCode.value)}
+        if (!theCode.classList.contains("chaos")) {addToDisplay(theCodeValue)}
         
         const doButtonStuff = () => {
             if (theCode.classList.contains("reset")) {
@@ -83,11 +93,12 @@ function calculate() {
                     y = undefined;
                     operator = "";
                     numButton = undefined;
+                    theCodeValue = theCode.value;
                 }
                 resetEverything();
 
             } else if (theCode.classList.contains("number")) {
-                numButton = theCode.value;
+                numButton = theCodeValue;
                 const createShowing = () => {
                     showingNumber += numButton;
                 }
@@ -139,10 +150,18 @@ function calculate() {
                 }
 
                 doTheMath();
+
             } else if (theCode.classList.contains("chaos")) {
                 removeFromDisplay();
                 showingNumber = showingNumber.slice(0, -1);
-                console.log(showingNumber);
+                const toggle = () => {
+                    if (theCodeValue == theCode.value) {
+                        theCodeValue = theCode.id;
+                    } else if (theCodeValue == theCode.id) {
+                        theCodeValue = theCode.value;
+                    }
+                }
+                toggle();
             }
         }
         
