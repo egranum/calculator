@@ -39,7 +39,7 @@ const addToDisplay = (toBeAdded) => {
 function removeFromDisplay() {
     //remove last added item from display
     const numberContainer = document.querySelector('.number-container');
-    numberContainer.removeChild(numberContainer.lastChild);
+    numberContainer.removeChild(numberContainer.lastElementChild);
 }
 
 function removeDisplayContent() {
