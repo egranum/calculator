@@ -72,7 +72,7 @@ function calculate() {
             theCode = document.querySelector(`button[data-key="${e.code}"]`);
         }
  
-        addToDisplay(theCode.value)
+        if (!theCode.classList.contains("chaos")) {addToDisplay(theCode.value)}
         
         const doButtonStuff = () => {
             if (theCode.classList.contains("reset")) {
