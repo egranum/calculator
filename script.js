@@ -60,6 +60,10 @@ function calculate() {
     let numButton;
 
     function connectButtons(e) {
+        //prevent default button behaviour
+        if (e.code === 'NumpadEnter' || e.code === 'Enter') {
+            e.preventDefault();
+        }
         //choose the correct button, either by click or keyboard
         let theCode;
         if (e.type === 'click') {
@@ -135,6 +139,10 @@ function calculate() {
                 }
 
                 doTheMath();
+            } else if (theCode.classList.contains("chaos")) {
+                removeFromDisplay();
+                showingNumber = showingNumber.slice(0, -1);
+                console.log(showingNumber);
             }
         }
         
