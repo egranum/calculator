@@ -165,6 +165,11 @@ function calculate() {
                 //toggle chaos between true and false
                 chaosUnleashed = !chaosUnleashed;
                 
+                if (x !== undefined && showingNumber === "") {
+                    //when removing an operator, revert x and showingNumber
+                    showingNumber = String(x);
+                    x = undefined;
+                }
             }
         }
         
