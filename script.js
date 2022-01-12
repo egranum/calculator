@@ -62,6 +62,7 @@ function calculate() {
     let theCodeValue;
     let theCodeId;
     let currentNumber;
+    let chaosUnleashed = false;
 
     function connectButtons(e) {
         //prevent default button behaviour
@@ -76,20 +77,17 @@ function calculate() {
             theCode = document.querySelector(`button[data-key="${e.code}"]`);
         }
         
+        theCodeId = theCode.id;
+ 
+        theCodeValue = theCode.value;
+
         const doButtonStuff = () => {
 
-            theCodeId = theCode.id;
-            console.log(theCodeId);
-     
-            theCodeValue = theCode.value;
-            console.log(theCodeValue);
-            
-            if (currentNumber !== theCodeId) {
-                const findCurrentNumber = () => {
-                    currentNumber = theCodeValue;
-                }
-                findCurrentNumber();
+            const findCurrentNumber = () => {
+                //define number based on chaos status
+                currentNumber = (chaosUnleashed) ? theCodeId : theCodeValue;
             }
+            findCurrentNumber();
      
             if (!theCode.classList.contains("chaos")) {addToDisplay(currentNumber)}
 
@@ -101,7 +99,7 @@ function calculate() {
                     y = undefined;
                     operator = "";
                     numButton = undefined;
-                    currentNumber = theCodeValue;
+                    chaosUnleashed = false;
                 }
                 resetEverything();
 
@@ -160,18 +158,12 @@ function calculate() {
                 doTheMath();
 
             } else if (theCode.classList.contains("chaos")) {
+                //remove last input
                 removeFromDisplay();
                 showingNumber = showingNumber.slice(0, -1);
                 
-                const toggle = () => {
-                    if (currentNumber === theCodeValue) {
-                        currentNumber = theCodeId;
-                    } else if (currentNumber === theCodeId) {
-                        currentNumber = theCodeValue;
-                    }
-                }
-
-                toggle();
+                //toggle chaos between true and false
+                chaosUnleashed = !chaosUnleashed;
                 
             }
         }
