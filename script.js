@@ -90,6 +90,11 @@ function calculate() {
             }
             findCurrentNumber();
      
+            if (theCode.classList.contains("number") && x !== undefined && operator === undefined) {
+                removeDisplayContent();
+                x = undefined;
+            }
+            
             if (!theCode.classList.contains("chaos")) {addToDisplay(currentNumber)}
 
             if (theCode.classList.contains("reset")) {
@@ -122,19 +127,24 @@ function calculate() {
                         x = Number(showingNumber);
                         showingNumber = "";
                     } else if (x !== undefined && y === undefined) {
-                        //put second operator somewhere temporary
-                        let tempOperator = theCode.value;
-                        //store second number in y
-                        y = Number(showingNumber);
-                        showingNumber = "";
-                        //do math
-                        let result = operate(x, operator, y);
-                        x = result;
-                        y = undefined;
-                        operator = tempOperator;
-                        removeDisplayContent();
-                        addToDisplay(result);
-                        addToDisplay(operator);
+                        //put second operator somewhere temporary if first is occupied
+                        if (operator === undefined) {
+                            operator = theCode.value
+                        } else {
+                            let tempOperator = theCode.value;
+                            //store second number in y
+                            y = Number(showingNumber);
+                            showingNumber = "";
+                            //do math
+                            let result = operate(x, operator, y);
+                            result = +result.toFixed(2);
+                            x = result;
+                            y = undefined;
+                            operator = tempOperator;
+                            removeDisplayContent();
+                            addToDisplay(result);
+                            addToDisplay(operator);
+                        }
                     } 
                 }
 
@@ -150,8 +160,10 @@ function calculate() {
                         y = Number(showingNumber);
                         showingNumber = "";
                         result = operate(x, operator, y);
+                        result = +result.toFixed(2);
                         x = result;
                         y = undefined;
+                        operator = undefined;
                         removeDisplayContent();
                         addToDisplay(result);
                     }
