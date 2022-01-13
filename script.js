@@ -63,6 +63,7 @@ function calculate() {
     let theCodeId;
     let currentNumber;
     let chaosUnleashed = false;
+    let decimalPressed = false;
 
     function connectButtons(e) {
         //prevent default button behaviour
@@ -100,6 +101,7 @@ function calculate() {
                     operator = "";
                     numButton = undefined;
                     chaosUnleashed = false;
+                    decimalPressed = false;
                 }
                 resetEverything();
 
@@ -171,9 +173,15 @@ function calculate() {
                     x = undefined;
                 }
             }
+
+            //check and set decimal status
+            decimalPressed = (showingNumber.includes(".")) ? true : false;
         }
         
-        doButtonStuff();
+        //prevent button stuff if the stuff is a second decimal
+        if (decimalPressed === false || decimalPressed === true && !theCode.classList.contains("decimal")){
+            doButtonStuff();
+        }
     }
     
     window.addEventListener('keydown', connectButtons);
