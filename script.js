@@ -30,23 +30,48 @@ const operate = (x, operator, y) => {
 
 const addToDisplay = (toBeAdded) => {
     //Add numbers and operators to display
-    const numberContainer = document.querySelector('.number-container');
-    let numberToAdd = document.createElement('span');
-    numberToAdd.textContent = toBeAdded;
+    const numberContainer = document.querySelector('.added-content');
+    let numberToAdd = document.createTextNode(toBeAdded);
     numberContainer.appendChild(numberToAdd);
 }
 
 function removeFromDisplay() {
     //remove last added item from display
-    const numberContainer = document.querySelector('.number-container');
-    numberContainer.removeChild(numberContainer.lastElementChild);
+    const numberContainer = document.querySelector('.added-content');
+    let numbersOnDisplay = numberContainer.textContent;
+    numberContainer.textContent = numbersOnDisplay.slice(0, -1);
 }
 
 function removeDisplayContent() {
     //empty display
-    const numberContainer = document.querySelector('.number-container')
+    const numberContainer = document.querySelector('.added-content')
     numberContainer.textContent = ''
 }
+
+const isOverflown = ({ clientHeight, scrollHeight }) => {scrollHeight > clientHeight}
+
+const resizeText = ({ element, elements, minSize = 10, maxSize = 512, step = 1, unit = 'px' }) => {
+  (elements || [element]).forEach(el => {
+    let i = minSize;
+    let overflow = false;
+
+        const parent = el.parentNode;
+
+    while (!overflow && i < maxSize) {
+        el.style.fontSize = `${i}${unit}`;
+        overflow = isOverflown(parent);
+
+      if (!overflow) i += step;
+    }
+
+    // revert to last state where no overflow happened
+    el.style.fontSize = `${i - step}${unit}`;
+  })
+}
+
+resizeText({
+    element: document.querySelector('.added-content')
+});
 
 //buttons are needed for the event listener. Don't remove again you dumbfuck.
 const allButtons = Array.from(document.querySelectorAll('.button'));
@@ -137,7 +162,9 @@ function calculate() {
                             showingNumber = "";
                             //do math
                             let result = operate(x, operator, y);
-                            result = +result.toFixed(2);
+                            if (result !== `Heat death of the universe`) {
+                                result = +result.toFixed(2);
+                            }
                             x = result;
                             y = undefined;
                             operator = tempOperator;
@@ -160,7 +187,9 @@ function calculate() {
                         y = Number(showingNumber);
                         showingNumber = "";
                         result = operate(x, operator, y);
-                        result = +result.toFixed(2);
+                        if (result !== `Heat death of the universe`) {
+                            result = +result.toFixed(2);
+                        }
                         x = result;
                         y = undefined;
                         operator = undefined;
