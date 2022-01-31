@@ -48,7 +48,7 @@ function removeDisplayContent() {
     numberContainer.textContent = ''
 }
 
-const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
+const isOverflown = ({ clientWidth, clientHeight, scrollWidth, scrollHeight }) => (scrollWidth > clientWidth) || (scrollHeight > clientHeight)
 
 const resizeText = ({ element, elements, minSize = 10, maxSize = 512, step = 1, unit = 'px' }) => {
   (elements || [element]).forEach(el => {
