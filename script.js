@@ -48,7 +48,7 @@ function removeDisplayContent() {
     numberContainer.textContent = ''
 }
 
-const isOverflown = ({ clientHeight, scrollHeight }) => {scrollHeight > clientHeight}
+const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
 
 const resizeText = ({ element, elements, minSize = 10, maxSize = 512, step = 1, unit = 'px' }) => {
   (elements || [element]).forEach(el => {
@@ -119,9 +119,6 @@ function calculate() {
             }
             
             if (!theCode.classList.contains("chaos")) {addToDisplay(currentNumber)}
-            resizeText({
-                element: document.querySelector('.added-content')
-            });
 
             if (theCode.classList.contains("reset")) {
                 removeDisplayContent();
@@ -215,6 +212,10 @@ function calculate() {
                     x = undefined;
                 }
             }
+
+            resizeText({
+                element: document.querySelector('.added-content')
+            });
 
             //check and set decimal status
             decimalPressed = (showingNumber.includes(".")) ? true : false;

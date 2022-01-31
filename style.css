@@ -14,9 +14,10 @@
 }
 
 .number-container {
-    width: 100%;
+    max-width: 325px;
     height: 100%;
-    padding: 1rem 0.6rem;
+    padding: 0px 9px;
+    
 }
 
 .added-content {
