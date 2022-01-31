@@ -69,9 +69,7 @@ const resizeText = ({ element, elements, minSize = 10, maxSize = 512, step = 1, 
   })
 }
 
-resizeText({
-    element: document.querySelector('.added-content')
-});
+
 
 //buttons are needed for the event listener. Don't remove again you dumbfuck.
 const allButtons = Array.from(document.querySelectorAll('.button'));
@@ -121,6 +119,9 @@ function calculate() {
             }
             
             if (!theCode.classList.contains("chaos")) {addToDisplay(currentNumber)}
+            resizeText({
+                element: document.querySelector('.added-content')
+            });
 
             if (theCode.classList.contains("reset")) {
                 removeDisplayContent();
